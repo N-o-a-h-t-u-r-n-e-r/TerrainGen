@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://dfdgxddcruxqg"]
+
+[ext_resource type="Script" uid="uid://2hopgtkbjqwv" path="res://MeshGen.gd" id="1_2hegx"]
+[ext_resource type="Texture2D" uid="uid://cxolvd3loe24p" path="res://Epic_BlueSunset_EquiRect_flat.png" id="1_n0c5j"]
+[ext_resource type="Shader" uid="uid://cgdlmuimxbs21" path="res://SkyShader.gdshader" id="2_optok"]
+[ext_resource type="Script" uid="uid://b8vsud3u0sw43" path="res://Player.gd" id="4_yn5h5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tpqx7"]
+shader = ExtResource("2_optok")
+shader_parameter/skyTexture = ExtResource("1_n0c5j")
+
+[sub_resource type="Sky" id="Sky_d6olp"]
+sky_material = SubResource("ShaderMaterial_tpqx7")
+
+[sub_resource type="Environment" id="Environment_nt5v7"]
+background_mode = 2
+background_energy_multiplier = 1.35
+sky = SubResource("Sky_d6olp")
+ambient_light_source = 1
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.0
+reflected_light_source = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n7l0h"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nt5v7")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.8746, 0)
+script = ExtResource("4_yn5h5")
+speed = 50.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_n7l0h")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.667889, -0.370279)
+
+[node name="Camera3D" type="Camera3D" parent="Player/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.569578)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.789063, -0.49304, -0.366458, 0.614313, 0.633292, 0.470702, 8.84209e-09, -0.596533, 0.802588, 27.9082, 38.8561, 32.0764)
+
+[node name="ChunkGenerator" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.155857, 0, 0.24305)
+script = ExtResource("1_2hegx")
+frequency = 0.475
+amplitude = 4.016
+amplifier = 3.712
+scale_noise = 10.0
+octaves = 7
+render_distance = 12

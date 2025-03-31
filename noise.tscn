@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://g5xao75v0mwj"]
+
+[ext_resource type="Script" uid="uid://cgayd5ptft5nf" path="res://threadsing.gd" id="1_qg2a6"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rujew"]
+noise_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j4isk"]
+noise = SubResource("FastNoiseLite_rujew")
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_qg2a6")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(585, 331)
+texture = SubResource("NoiseTexture2D_j4isk")
